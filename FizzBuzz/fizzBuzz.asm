@@ -11,6 +11,7 @@ main:
     li $v0, 4
     li $t0, 100 # total number of iterations
     li $t1, 0 # current number (start at 1, will end at 100)
+    li $t2, 15 # for checking $t1 % $t3 AND $t1 % $t5
     li $t3, 3 # for checking $t1 % $t3
     li $t5, 5 # for checking $t1 % $t5
 loop:
@@ -18,6 +19,10 @@ loop:
     addi $t1, $t1, 1 # add 1 to t1
 
     beq $t1, 1, firstPrint # if t1 == 1 then print without comma
+
+    div $t1, $t2
+    mfhi $s0
+    beq $s0 $0 fizzbuzz # if $t1 % $t2 == 0, go to fizzbuzz
 
     div $t1, $t3
     mfhi $s0
