@@ -35,7 +35,7 @@ loop:
     la $a0, comma_string # print comma
     li $v0, 4
     syscall
-    la $a0, ($t1) # print number
+    la $a0, ($t1) # print current number
     li $v0, 1
     syscall
 
@@ -56,7 +56,7 @@ fizzbuzz:
     syscall
     j loop
 firstPrint:
-    la $a0, ($t1)
+    la $a0, ($t1) # to print first value without a comma appearing before it
     li $v0, 1
     syscall
     j loop
