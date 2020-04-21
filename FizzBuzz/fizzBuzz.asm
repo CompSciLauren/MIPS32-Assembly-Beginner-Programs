@@ -2,6 +2,7 @@
 fizz_string:    .asciiz    ", Fizz"
 buzz_string:    .asciiz    ", Buzz"
 fizzbuzz_string:    .asciiz    ", Fizz Buzz"
+comma_string:    .asciiz    ", "
 
 .text
 .globl  main
@@ -9,12 +10,19 @@ fizzbuzz_string:    .asciiz    ", Fizz Buzz"
 main:
     li $v0, 4
     li $t0, 100 # total number of iterations
-    li $t1, 1 # current number (start at 1, will end at 100)
+    li $t1, 0 # current number (start at 1, will end at 100)
     li $t3, 3 # for checking $t1 % $t3
     li $t5, 5 # for checking $t1 % $t5
 loop:
     beq $t1, $t0, end # if t1 == t0 then end loop
     addi $t1, $t1, 1 # add 1 to t1
+
+    la $a0, comma_string # print comma
+    li $v0, 4
+    syscall
+    la $a0, ($t1)
+    li $v0, 1
+    syscall
 
     div $t1, $t3
     mfhi $s0
@@ -23,7 +31,10 @@ loop:
     div $t1, $t5
     mfhi $s0
     beq $s0 $0 buzz # if $t1 % $t5 == 0, go to buzz
-    # la $a0, ($t0)
+    
+    li $v0, 1
+    move $a0, $s0
+
     j loop
 fizz:
     la $a0, fizz_string # print fizz
