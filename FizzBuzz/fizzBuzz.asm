@@ -17,6 +17,8 @@ loop:
     beq $t1, $t0, end # if t1 == t0 then end loop
     addi $t1, $t1, 1 # add 1 to t1
 
+    beq $t1, 1, firstPrint # if t1 == 1 then print without comma
+
     la $a0, comma_string # print comma
     li $v0, 4
     syscall
@@ -49,6 +51,11 @@ buzz:
 fizzbuzz:
     la $a0, fizzbuzz_string # print fizzbuzz
     li $v0, 4
+    syscall
+    j loop
+firstPrint:
+    la $a0, ($t1)
+    li $v0, 1
     syscall
     j loop
 end:
