@@ -15,9 +15,14 @@ main:
 loop:
     beq $t1, $t0, end # if t1 == t0 then end loop
     addi $t1, $t1, 1 # add 1 to t1
+
     div $t1, $t3
     mfhi $s0
     beq $s0 $0 fizz # if $t1 % $t3 == 0, go to fizz
+
+    div $t1, $t5
+    mfhi $s0
+    beq $s0 $0 buzz # if $t1 % $t5 == 0, go to buzz
     # la $a0, ($t0)
     j loop
 fizz:
