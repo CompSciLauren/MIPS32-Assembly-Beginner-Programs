@@ -19,13 +19,6 @@ loop:
 
     beq $t1, 1, firstPrint # if t1 == 1 then print without comma
 
-    la $a0, comma_string # print comma
-    li $v0, 4
-    syscall
-    la $a0, ($t1)
-    li $v0, 1
-    syscall
-
     div $t1, $t3
     mfhi $s0
     beq $s0 $0 fizz # if $t1 % $t3 == 0, go to fizz
@@ -33,9 +26,13 @@ loop:
     div $t1, $t5
     mfhi $s0
     beq $s0 $0 buzz # if $t1 % $t5 == 0, go to buzz
-    
+
+    la $a0, comma_string # print comma
+    li $v0, 4
+    syscall
+    la $a0, ($t1) # print number
     li $v0, 1
-    move $a0, $s0
+    syscall
 
     j loop
 fizz:
